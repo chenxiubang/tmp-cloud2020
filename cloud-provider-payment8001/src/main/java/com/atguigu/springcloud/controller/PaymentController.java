@@ -38,6 +38,11 @@ public class PaymentController {
         for (ServiceInstance instance : instances){
             log.info(instance.getServiceId()+"\t"+instance.getHost()+"\t"+instance.getPort()+"\t"+instance.getUri());
         }
+
+        List<ServiceInstance> instances1 = discoveryClient.getInstances("CLOUD-ORDER-SERVER");
+        instances1.forEach(x->{
+            log.info(x.getServiceId()+"\t"+x.getHost()+"\t"+x.getUri());
+        });
         return this.discoveryClient;
     }
 
