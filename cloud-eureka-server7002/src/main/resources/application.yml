@@ -4,6 +4,13 @@ server:
 eureka:
   instance:
     hostname: eureka7002.com #eureka服务端的实例名称
+
+    # 如果是集群版 好像？？一个配置禁用自我保护 和过期删除 就所有eureka集群就同步？？？
+    # 发送心跳间隔
+    lease-renewal-interval-in-seconds: 1
+    # 最后等待时间
+    lease-expiration-duration-in-seconds: 2
+
   client:
     #false表示不向注册中心注册自己
     register-with-eureka: false
@@ -13,7 +20,7 @@ eureka:
       #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址
       defaultZone: http://eureka7001.com:7001/eureka/  #互相注册
 #      defaultZone: http://eureka7001.com:7001/eureka/ #单机模式
-    #server:
-    #关闭自我保护机制，保证不可用服务被及时剔除
-    #enable-self-preservation: false
-    #eviction-interval-timer-in-ms: 2000
+    server:
+#    关闭自我保护机制，保证不可用服务被及时剔除
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 2000
