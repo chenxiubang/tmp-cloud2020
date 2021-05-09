@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
-import javax.xml.soap.SAAJResult;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -22,6 +22,11 @@ public class PaymentController {
 
     @Resource
     private DiscoveryClient discoveryClient;
+
+    @GetMapping("/payment/test")
+    public CommonResult test() {
+        return new CommonResult(200,serverPort+"处理了req");
+    }
 
     @GetMapping(value = "/payment/discovery")
     public Object discovery(){
