@@ -14,4 +14,9 @@ public class PaymentServiceImpl implements PaymentService{
     public Payment getPaymentById(Long id){
         return paymentDao.getPaymentById(id);
     }
+
+    @Override
+    public String test() {
+        return "你好我是8001暴露的服务接口";
+    }
 }

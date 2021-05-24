@@ -1,0 +1,11 @@
+server:
+  port: 80
+
+eureka:
+  client:
+    # openFeign不把自己注册进去eureka 视频里没有注册 我也不是很清楚
+    register-with-eureka: false
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+#      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka  #集群版
