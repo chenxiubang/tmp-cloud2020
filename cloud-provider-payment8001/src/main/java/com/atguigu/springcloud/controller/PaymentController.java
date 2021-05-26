@@ -2,6 +2,7 @@ package com.atguigu.springcloud.controller;
 import com.atguigu.springcloud.entities.CommonResult;
 import com.atguigu.springcloud.entities.Payment;
 import com.atguigu.springcloud.service.PaymentService;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
@@ -23,8 +24,10 @@ public class PaymentController {
     @Resource
     private DiscoveryClient discoveryClient;
 
+    @SneakyThrows
     @GetMapping("/payment/test")
     public CommonResult test() {
+        TimeUnit.SECONDS.sleep(5);
         return new CommonResult(200,serverPort+"处理了req");
     }
 

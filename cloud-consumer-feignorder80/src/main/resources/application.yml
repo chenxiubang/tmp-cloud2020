@@ -9,3 +9,23 @@ eureka:
     service-url:
       defaultZone: http://localhost:7001/eureka
 #      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka  #集群版
+
+
+# 因为feign内置了ribbon，通过改变ribbon的配置，改变请求报错的时间，默认是1s
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+
+#这里这个配置可以写个配置类，也可以直接写配置文件
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+
+logging:
+  level:
+    #这里参数是个键值对
+    #openFeign 接口路径 + 日志级别
+    com.cxb.service.FeignService: debug
+

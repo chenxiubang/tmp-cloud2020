@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * openFeign自带负载均很
  */
 @FeignClient(value = "cloud-provider-service")//feign去调用哪个微服务
-@Component  //别忘记
+@Component  //这个到底可不可以不加
 public interface FeignService {
 
     /**
