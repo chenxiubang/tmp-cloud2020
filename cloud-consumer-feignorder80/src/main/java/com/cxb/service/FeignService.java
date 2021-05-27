@@ -18,4 +18,11 @@ public interface FeignService {
      */
     @GetMapping("/payment/test")
     CommonResult test();
+
+    @GetMapping("/payment/hystrixOK")
+    CommonResult hystrixOK();
+
+
+    @GetMapping("/payment/hystrixWait")
+    CommonResult hystrixWati();
 }

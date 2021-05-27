@@ -16,6 +16,15 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
     <dependencies>
+
+
+        <!-- hystrix客户端 和服务端都可以使用-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+
+
         <!-- 相较于普通的order模块 这边多了openFeign的依赖-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
