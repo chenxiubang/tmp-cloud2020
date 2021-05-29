@@ -19,6 +19,13 @@
 <!--        </dependency>-->
         <!--eureka-client-->
 
+        <!-- hystrix 的仪表盘监控 我这里不另外起一个项目了-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-netflix-hystrix-dashboard</artifactId>
+        </dependency>
+
+
         <!-- hystrix客户端 和服务端都可以使用-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
