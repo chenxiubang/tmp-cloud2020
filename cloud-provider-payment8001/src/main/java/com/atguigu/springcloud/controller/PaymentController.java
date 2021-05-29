@@ -1,11 +1,14 @@
 package com.atguigu.springcloud.controller;
 
+import cn.hutool.core.util.IdUtil;
 import com.atguigu.springcloud.entities.CommonResult;
 import com.atguigu.springcloud.entities.Payment;
 import com.atguigu.springcloud.service.PaymentService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import com.netflix.hystrix.contrib.javanica.conf.HystrixPropertiesManager;
 import lombok.SneakyThrows;
+import lombok.experimental.var;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
@@ -102,8 +105,8 @@ public class PaymentController {
     }
 
 
-    @HystrixCommand(fallbackMethod = "back",commandProperties = {
-        @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "2000")
+    @HystrixCommand(fallbackMethod = "back", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")
     })//TODO出事的话调用这个方法，报错也走这里
     @SneakyThrows
     @GetMapping("/payment/hystrixWait")
@@ -111,8 +114,38 @@ public class PaymentController {
         TimeUnit.SECONDS.sleep(3);
         return new CommonResult(200, Thread.currentThread().getName());
     }
+
     //这个是兜底的方法
     public CommonResult back() {
         return new CommonResult(444, "等待过久");
     }
+
+
+    //测试服务熔断
+    @HystrixCommand(fallbackMethod ="back2",commandProperties = {
+            //1 是否开启熔断器 键值如果记不住 可以用hystrixPropertiesManager 来找，注意键值都是String
+            @HystrixProperty(name= HystrixPropertiesManager.CIRCUIT_BREAKER_ENABLED,value = "true"),
+
+            //2.这个怎么说呢 只能说次数
+            @HystrixProperty(name=HystrixPropertiesManager.CIRCUIT_BREAKER_REQUEST_VOLUME_THRESHOLD,value = "10"),
+
+            //3这个是时间窗口期
+            @HystrixProperty(name=HystrixPropertiesManager.CIRCUIT_BREAKER_SLEEP_WINDOW_IN_MILLISECONDS,value = "10000"),
+
+            //4这个是错误率
+            @HystrixProperty(name=HystrixPropertiesManager.CIRCUIT_BREAKER_ERROR_THRESHOLD_PERCENTAGE,value = "50")
+    })
+    @GetMapping("/breakDown")
+    public CommonResult<String> breakDown(@RequestParam("id") Integer id) {
+        if (id < 0) {
+            throw new RuntimeException("不能输入负数,您现在输入的id是："+id);
+        }
+        var uid = IdUtil.simpleUUID();
+        return new CommonResult<>(200,"success","流水号"+uid);
+    }
+    //TODO 记住兜底的方法返回类型要和原来方法一样 包括泛型
+    public CommonResult<String> back2(Integer id) {//这个接盘的方法和原来的方法入参一样就可以了
+        return new CommonResult(444, "sorry","id不能为负数,您现在输入的id是："+id);
+    }
+
 }
