@@ -1,0 +1,24 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: cloud-gateway9527
+  cloud:
+    # 配置了这些后 可以通过gateway端口访问 隐藏了真实端口
+    gateway: #网关配置 可以 写在yml也可以硬编码
+      routes: # 这里参数是RouteDefinition的列表
+        - id: 你妈是个傻逼  #id保证唯一即可
+          uri: http://localhost:8001
+          predicates:
+            - Path=/payment/**    #断言
+
+eureka:
+  instance:
+    hostname: 我是网关在eureka配置中心的实例的名字
+
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url: #原来这里传的是个map
+      defaultZone: http://localhost:7001/eureka
