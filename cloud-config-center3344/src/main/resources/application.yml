@@ -1,0 +1,27 @@
+server:
+  port: 3344
+spring:
+  application:
+    name: cloud-config-repo
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/chenxiubang/tmp-springcloudconfig-repo.git #http形式
+          skip-ssl-validation: true # 如果uri配置了https的方式 这里要配置跳过ssl校验
+          #          uri: git@github.com:chenxiubang/tmp-springcloudconfig-repo.git
+          search-paths:
+          # 这里应该是子目录
+          # 如果有必要，配置账号密码，一般实际开发中会用到私仓，账号密码或者私钥肯定得有一个
+          default-label: main # git现在默认的label是main 所以要加一个这个设置、
+        default-application-name: config #TODO 这个默认的application-name有用的，是配置中心配置文件的名值,不然就是微服务名
+      label: main
+
+      #TODO 访问http：//localhost:3344/${label}/${application}-${profile}.yml
+
+eureka:
+  client:
+    fetch-registry: true
+    service-url: # 记住这里下面传递的是一个map
+      defaultZone: http://localhost:7001/eureka
