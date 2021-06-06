@@ -1,0 +1,31 @@
+server:
+  port: 3355
+
+spring:
+  application:
+    name: cloud-config-client
+  cloud:
+    config:
+      # TODO 这一块参考配置中心配置的github地址 不要写错了
+      # TODO 如果运维工程师修改了github上的文件 config服务端可以即使反馈， 但是像客户端（如果不重启）无法刷新！！
+      label: main
+      name: config
+      # uri不是url
+      uri: http://localhost:3344
+      profile: dev
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+
+# 这个是actuator的依赖 用于暴露服务端口 虽然我也搞不懂
+# * 暴露所有。省事情
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  # include 不要写成 exclude
+        # 用cmd 发 post 请求 刷新 curl -X POST "http://localhsot/actuator/refresh"
