@@ -1,0 +1,52 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: cloud-gateway9527
+  cloud:
+    # 配置了这些后 可以通过gateway端口访问 隐藏了真实端口
+    gateway: #网关配置 可以 写在yml也可以硬编码
+      # 根据微服务网关来名字动态路由
+      discovery:
+        locator:
+          enabled: true
+
+      routes: # 这里参数是RouteDefinition的列表
+        - id: 你妈是个傻逼  #id保证唯一即可
+
+          # uri: http://localhost:8001 #TODO 原来的uri写死的 现在用微服务名
+          # 通过网关动态路由 TODO 但不知道为什么 好慢
+          uri: lb://cloud-provider-service
+          predicates:
+            - Path=/payment/**    #断言
+            - After=2021-06-02T21:40:10.279+08:00[GMT+08:00] #这个时间之后才能访问 这里的时间是java9的ZonedDateTime.now()获取
+
+          # gateway提供的filter有全局和非全局的 全局过滤器有10余种，非全局 有30余种
+          # q其实用的多的还是自定义filter
+
+eureka:
+  instance:
+    hostname: 我是网关在eureka配置中心的实例的名字
+
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url: #原来这里传的是个map
+      defaultZone: http://localhost:7001/eureka
+
+#
+#
+#      Loaded RoutePredicateFactory [After]
+#      Loaded RoutePredicateFactory [Before]
+#      Loaded RoutePredicateFactory [Between]
+#      Loaded RoutePredicateFactory [Cookie]
+#      Loaded RoutePredicateFactory [Header]
+#      Loaded RoutePredicateFactory [Host]
+#      Loaded RoutePredicateFactory [Method]
+#      Loaded RoutePredicateFactory [Path]
+#      Loaded RoutePredicateFactory [Query]
+#      Loaded RoutePredicateFactory [ReadBodyPredicateFactory]
+#      Loaded RoutePredicateFactory [RemoteAddr]
+#      Loaded RoutePredicateFactory [Weight]
+#      Loaded RoutePredicateFactory [CloudFoundryRouteService]

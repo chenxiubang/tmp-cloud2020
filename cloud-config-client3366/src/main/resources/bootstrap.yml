@@ -1,5 +1,5 @@
 server:
-  port: 3355
+  port: 3366
 
 spring:
   application:
@@ -13,7 +13,6 @@ spring:
       # uri不是url
       uri: http://localhost:3344
       profile: dev
-
   #客户端也要添加rabbitmq的配置 注意在spring的下一级
   rabbitmq:
     host: localhost
@@ -36,4 +35,3 @@ management:
       exposure:
         include: "*"  # include 不要写成 exclude
         # 用cmd 发 post 请求 刷新 curl -X POST "http://localhsot/actuator/refresh"
-
