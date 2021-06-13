@@ -4,6 +4,12 @@ server:
 spring:
   application:
     name: cloud-provider-service
+  # 链路跟踪
+  zipkin:
+    base-url: localhost:9411/zipkin
+  sleuth:
+    sampler:
+      probability: 1
 
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource      #当前数据源操作类型
@@ -11,6 +17,7 @@ spring:
     url: jdbc:mysql://localhost:3306/cxb?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 123456
+
 
 eureka:
   client:
