@@ -22,6 +22,8 @@
         <module>cloud-stream-provider-8801</module>
         <module>cloud-stream-consumer-8802</module>
         <module>cloud-stream-consumer-8803</module>
+        <module>alibabab-payment9001</module>
+        <module>alibaba-order80</module>
     </modules>
     <packaging>pom</packaging>
     <!--统一管理jar包版本-->
@@ -60,7 +62,7 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>2.1.0.RELEASE</version>
+                <version>2.2.5.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
