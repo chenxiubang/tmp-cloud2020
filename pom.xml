@@ -24,6 +24,7 @@
         <module>cloud-stream-consumer-8803</module>
         <module>alibabab-payment9001</module>
         <module>alibaba-order80</module>
+        <module>alibaba-sentinel8401-service</module>
     </modules>
     <packaging>pom</packaging>
     <!--统一管理jar包版本-->
