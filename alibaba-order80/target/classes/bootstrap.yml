@@ -1,0 +1,25 @@
+server:
+  port: 80
+spring:
+  application:
+    name: nacos-order-consumer
+  cloud:
+    nacos:
+      discovery:
+#        server-addr: localhost:8848
+        #这个地址是linux上nginx+nacos集群配置，nginx的地址
+        server-addr: 192.168.21.128:1111
+      config:
+        server-addr: 192.168.21.128:1111
+        file-extension: yaml
+        # 这里填写分组 不配置久默认
+#        group: OMEN_GROUP
+        # 这里填写命名空间流水号 不配置默认public命名空间
+#        namespace: 474c0bf4-83f8-45d9-b21a-f4603d23351c
+  # TODO 这个不能空着！！！
+  profiles:
+    active: dev
+
+# 配置在nacos上得文件名满足这个公式
+# ${spring.application.name}-${spring.profile.active}.${spring.cloud.nacos.config.file-extension}
+# 就是服务名+ dev + 后缀

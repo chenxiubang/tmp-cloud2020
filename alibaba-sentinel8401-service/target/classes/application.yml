@@ -1,0 +1,20 @@
+server:
+  port: 8401
+
+spring:
+  application:
+    name: service-sentinel-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 #这个项目注册到nacos的地址
+    sentinel:
+      transport:
+        dashboard: localhost:8080 #这个项目被sentinel监控保护 ，sentinel的地址
+        port: 8719 #这里默认就是8719 如果dashboard的端口被占用就从8719开始 不停加1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 老样子暴露节点
