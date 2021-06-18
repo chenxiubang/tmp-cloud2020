@@ -1,3 +1,6 @@
+
+# TODO　seata当时学的时候主要是看阳哥的视频　自己没有手敲　下载的Seata版本比阳哥高太多 于是没有搭建环境
+
 server:
   port: 2001
 spring:
